@@ -15,6 +15,10 @@ const PageContainer = styled.div`
 
 const ChildContainer = styled.div`
   flex-grow: 1;
+  padding: 1rem;
+  h1 {
+    text-align: center;
+  }
   /* margin-top: 97px; */
 `
 
