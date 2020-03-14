@@ -15,7 +15,7 @@ const PageContainer = styled.div`
 
 const ChildContainer = styled.div`
   flex-grow: 1;
-  margin-top: 97px;
+  /* margin-top: 97px; */
 `
 
 const Layout = ({ children }) => {
@@ -32,7 +32,7 @@ const Layout = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
       <PageContainer>
-        <Header siteTitle={data.site.siteMetadata.title} />
+        {/* <Header siteTitle={data.site.siteMetadata.title} /> */}
         <ChildContainer>{children}</ChildContainer>
         <footer>
           © {new Date().getFullYear()}, Built with
