@@ -1,6 +1,7 @@
 import React from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 import BackgroundImage from "gatsby-background-image"
+import Image from "gatsby-image"
 import SEO from "../components/seo"
 import styled from "styled-components"
 
@@ -20,6 +21,13 @@ const IndexPage = () => {
             title
             author
             slug
+            featuredImage {
+              childImageSharp {
+                fluid {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
           }
         }
       }
@@ -32,26 +40,56 @@ const IndexPage = () => {
       <BackgroundImage
         Tag="header"
         fluid={data.file.childImageSharp.fluid}
-        style={{ height: "50vh" }}
+        style={{ height: "50vh", backgroundSize: "contain" }}
       />
-      <BlogPreview>
-        <h2>Blog Posts</h2>
-        {data.allMdx.nodes.map(post => (
-          <h3>
-            <Link to={post.frontmatter.slug}>{post.frontmatter.title}</Link>
-          </h3>
-        ))}
-      </BlogPreview>
+      <BlogContainer>
+        <h1>CrossFit For The Rest Of Us</h1>
+        <BlogPosts>
+          {data.allMdx.nodes.map(post => (
+            <BlogPreview>
+              <div>
+                <Image
+                  fluid={post.frontmatter.featuredImage.childImageSharp.fluid}
+                  alt={post.frontmatter.title}
+                />
+              </div>
+              <div>
+                <h2>
+                  <Link to={post.frontmatter.slug}>
+                    {post.frontmatter.title}
+                  </Link>
+                </h2>
+              </div>
+            </BlogPreview>
+          ))}
+        </BlogPosts>
+      </BlogContainer>
     </div>
   )
 }
 
 export default IndexPage
 
-const BlogPreview = styled.div`
+const BlogContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 2rem;
+`
+
+const BlogPosts = styled.div`
+  a {
+    text-decoration: none;
+    color: ${({ theme }) => theme.primary};
+    font-size: 1rem;
+  }
+`
+
+const BlogPreview = styled.div`
+  display: flex;
+  align-items: center;
+  div {
+    width: 50%;
+  }
 `
