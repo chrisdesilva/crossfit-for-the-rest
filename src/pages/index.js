@@ -48,12 +48,6 @@ const IndexPage = () => {
           {data.allMdx.nodes.map(post => (
             <BlogPreview>
               <div>
-                <Image
-                  fluid={post.frontmatter.featuredImage.childImageSharp.fluid}
-                  alt={post.frontmatter.title}
-                />
-              </div>
-              <div>
                 <h2>
                   <Link to={post.frontmatter.slug}>
                     {post.frontmatter.title}
@@ -89,7 +83,7 @@ const BlogPosts = styled.div`
 const BlogPreview = styled.div`
   display: flex;
   align-items: center;
-  div {
+  /* div {
     width: 50%;
-  }
+  } */
 `
