@@ -46,10 +46,10 @@ const IndexPage = () => {
         <h1>CrossFit For The Rest Of Us</h1>
         <BlogPosts>
           {data.allMdx.nodes.map(post => (
-            <BlogPreview>
+            <BlogPreview key={post.frontmatter.title}>
               <div>
                 <h2>
-                  <Link to={post.frontmatter.slug}>
+                  <Link to={`/blog/${post.frontmatter.slug}`}>
                     {post.frontmatter.title}
                   </Link>
                 </h2>
