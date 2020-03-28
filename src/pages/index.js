@@ -3,6 +3,7 @@ import { Link, useStaticQuery, graphql } from "gatsby"
 import BackgroundImage from "gatsby-background-image"
 import Image from "gatsby-image"
 import SEO from "../components/seo"
+import Layout from "../components/layout"
 import styled from "styled-components"
 
 const IndexPage = () => {
@@ -21,6 +22,7 @@ const IndexPage = () => {
             title
             author
             slug
+            date
             featuredImage {
               childImageSharp {
                 fluid {
@@ -35,7 +37,7 @@ const IndexPage = () => {
   `)
 
   return (
-    <div>
+    <Layout>
       <SEO title="Home" />
       <BackgroundImage
         Tag="header"
@@ -48,17 +50,16 @@ const IndexPage = () => {
           {data.allMdx.nodes.map(post => (
             <BlogPreview key={post.frontmatter.title}>
               <div>
-                <h2>
-                  <Link to={`/blog/${post.frontmatter.slug}`}>
-                    {post.frontmatter.title}
-                  </Link>
-                </h2>
+                <Link to={`/blog/${post.frontmatter.slug}`}>
+                  {post.frontmatter.title}
+                </Link>
+                <p>{post.frontmatter.date}</p>
               </div>
             </BlogPreview>
           ))}
         </BlogPosts>
       </BlogContainer>
-    </div>
+    </Layout>
   )
 }
 
@@ -75,8 +76,13 @@ const BlogContainer = styled.div`
 const BlogPosts = styled.div`
   a {
     text-decoration: none;
-    color: ${({ theme }) => theme.primary};
+    color: ${props => props.theme.primary};
     font-size: 1rem;
+  }
+
+  p {
+    font-size: 0.75rem;
+    color: ${props => props.theme.primary};
   }
 `
 

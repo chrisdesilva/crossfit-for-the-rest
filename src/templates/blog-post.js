@@ -48,12 +48,12 @@ const BlogWrapper = styled.div`
     }
   }
 
-  a {
+  /* a {
     color: #351c75;
     transition: color 300ms;
 
     :hover {
       color: black;
     }
-  }
+  } */
 `
