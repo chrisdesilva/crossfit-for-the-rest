@@ -16,18 +16,22 @@ const IndexPage = () => {
           }
         }
       }
-      allMdx {
+      blog: allContentfulBlog(
+        sort: { fields: post___childMdx___frontmatter___date }
+      ) {
         nodes {
-          frontmatter {
-            title
-            author
-            slug
-            date
-            featuredImage {
-              childImageSharp {
-                fluid {
-                  ...GatsbyImageSharpFluid
-                }
+          leadImage {
+            fluid {
+              src
+            }
+          }
+          slug
+          post {
+            childMdx {
+              excerpt
+              frontmatter {
+                title
+                date
               }
             }
           }
@@ -47,13 +51,13 @@ const IndexPage = () => {
       <BlogContainer>
         <h1>CrossFit For The Rest Of Us</h1>
         <BlogPosts>
-          {data.allMdx.nodes.map(post => (
-            <BlogPreview key={post.frontmatter.title}>
+          {data.blog.nodes.map(post => (
+            <BlogPreview key={post.post.childMdx.frontmatter.title}>
               <div>
-                <Link to={`/blog/${post.frontmatter.slug}`}>
-                  {post.frontmatter.title}
+                <Link to={`/blog/${post.slug}`}>
+                  {post.post.childMdx.frontmatter.title}
                 </Link>
-                <p>{post.frontmatter.date}</p>
+                <p>{post.post.childMdx.frontmatter.date}</p>
               </div>
             </BlogPreview>
           ))}

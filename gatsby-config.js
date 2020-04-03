@@ -1,3 +1,7 @@
+require("dotenv").config({
+  path: `.env`,
+})
+
 module.exports = {
   siteMetadata: {
     title: `CrossFit For The Rest Of Us`,
@@ -23,17 +27,17 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: `gatsby-source-contentful`,
       options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
+        spaceId: process.env.GATSBY_CONTENTFUL_SPACE_ID,
+        accessToken: process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN,
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `posts`,
-        path: `${__dirname}/src/posts`,
+        name: `images`,
+        path: `${__dirname}/src/images`,
       },
     },
     {

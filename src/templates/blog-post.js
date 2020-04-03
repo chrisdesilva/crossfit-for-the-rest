@@ -6,12 +6,16 @@ import Layout from "../components/layout.js"
 
 export const data = graphql`
   query($slug: String!) {
-    mdx(frontmatter: { slug: { eq: $slug } }) {
-      frontmatter {
-        title
-        author
+    blog: contentfulBlog(slug: { eq: $slug }) {
+      post {
+        childMdx {
+          body
+          frontmatter {
+            date
+            title
+          }
+        }
       }
-      body
     }
   }
 `
@@ -20,7 +24,7 @@ const BlogPost = ({ data }) => {
   return (
     <Layout>
       <BlogWrapper>
-        <MDXRenderer>{data.mdx.body}</MDXRenderer>
+        <MDXRenderer>{data.blog.post.childMdx.body}</MDXRenderer>
         <Link to="/">&larr; Back to Homepage</Link>
       </BlogWrapper>
     </Layout>
@@ -30,7 +34,8 @@ const BlogPost = ({ data }) => {
 export default BlogPost
 
 const BlogWrapper = styled.div`
-  padding: 2rem 5rem;
+  max-width: 90vw;
+  padding: 0 1rem;
 
   h1 {
     margin-bottom: 4rem;
@@ -46,6 +51,13 @@ const BlogWrapper = styled.div`
     li {
       font-weight: bold;
     }
+  }
+
+  img {
+    margin: 0 auto;
+    width: 90vw;
+    max-width: 500px;
+    display: block;
   }
 
   /* a {
